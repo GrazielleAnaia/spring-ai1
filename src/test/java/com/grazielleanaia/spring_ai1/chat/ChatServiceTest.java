@@ -96,11 +96,9 @@ public class ChatServiceTest {
 
     @Test
     void testChat_WhenClientThrowsException_Exception() {
-
         String userMessage = "test message";
         when(chatClientBuilder.build()).thenReturn(chatClient);
         ChatService realService = new ChatService(chatClientBuilder);
-
         when(chatClient.prompt()).thenThrow(new RuntimeException("ChatClient error"));
         assertThatThrownBy(() -> realService.chat(userMessage))
                 .isInstanceOf(RuntimeException.class)
@@ -129,7 +127,6 @@ public class ChatServiceTest {
         // Create a service with fresh mocks to avoid interference with @BeforeEach setup
         ChatClient.Builder freshBuilder = mock(ChatClient.Builder.class);
         ChatClient freshChatClient = mock(ChatClient.class);
-
         when(freshBuilder.build()).thenReturn(freshChatClient);
         ChatService realService = new ChatService(freshBuilder);
         try{
